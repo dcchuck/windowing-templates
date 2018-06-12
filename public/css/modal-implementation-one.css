@@ -1,0 +1,19 @@
+body {
+    font-family: sans-serif;
+    background: #7B7BFF;
+    color: white;
+}
+
+#control-bar {
+    height: 10px;
+    -webkit-app-region: drag;
+}
+
+#close {
+    float: right;
+    -webkit-app-region: no-drag;
+}
+
+#close:hover {
+    cursor: pointer;
+}

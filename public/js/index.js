@@ -9,6 +9,11 @@ async function showModalImplementationOne() {
         autoShow: true,
         defaultWidth: 300,
         defaultHeight: 300,
-        saveWindowState: false
+        saveWindowState: false,
+        frame: false,
+        cornerRounding: {
+            height: 5,
+            width: 5
+        }
     });
 }
