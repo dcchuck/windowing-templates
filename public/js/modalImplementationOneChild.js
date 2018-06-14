@@ -1,8 +1,20 @@
-fin.Window.getCurrent().then(thisWindow => {
-    thisWindow.on('close-requested', () => {
+
+let thisWindow;
+
+const hideButton = document.getElementById('hide');
+
+hideButton.onclick = () => {
+    if (!thisWindow) {
+        fin.Window.getCurrent().then(thisOfWindow => {
+            thisWindow = thisOfWindow;
+            thisOfWindow.hide();
+        })
+    } else {
         thisWindow.hide();
-    })
-})
+    }
+
+
+}
 
 /*
 bottom

@@ -51,15 +51,44 @@ var OpenFinModal = /** @class */ (function () {
                         _a = this;
                         return [4 /*yield*/, fin.Window.create({
                                 url: this.url,
-                                name: this.ofWindowName
+                                name: this.ofWindowName,
+                                frame: false
                             })];
                     case 1:
                         _a.ofWindow = _c.sent();
                         _b = this;
-                        return [4 /*yield*/, this.ofWindow.getParentWindow()];
+                        return [4 /*yield*/, fin.Window.getCurrent()];
                     case 2:
                         _b.parentWindow = _c.sent();
                         this.ready = true;
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    OpenFinModal.prototype.show = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var parentWindowBounds;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.parentWindow.getBounds()];
+                    case 1:
+                        parentWindowBounds = _a.sent();
+                        return [4 /*yield*/, this.ofWindow.resizeTo(parentWindowBounds.width, parentWindowBounds.height)];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.ofWindow.bringToFront()];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, this.ofWindow.showAt(parentWindowBounds.left, parentWindowBounds.top)];
+                    case 4:
+                        _a.sent();
+                        return [4 /*yield*/, this.ofWindow.focus()];
+                    case 5:
+                        _a.sent();
+                        return [4 /*yield*/, this.parentWindow.joinGroup(this.ofWindow)];
+                    case 6:
+                        _a.sent();
                         return [2 /*return*/];
                 }
             });

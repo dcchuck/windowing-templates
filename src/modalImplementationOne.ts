@@ -14,5 +14,5 @@ const showModalButton = document.getElementById('show-modal');
 showModalButton.onclick = () => showModal();
 
 async function showModal() {
-    await myModal.ofWindow.show();
+    await myModal.show();
 }

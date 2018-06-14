@@ -11,6 +11,9 @@ interface Imodal {
 interface IofWindow {
     getParentWindow();
     show();
+    showAt: (x: number, y: number) => any;
+    resizeTo();
+    getBounds();
 }
 
 export default class OpenFinModal {
@@ -30,10 +33,20 @@ export default class OpenFinModal {
     private async initLogic() {
         this.ofWindow = await fin.Window.create({
             url: this.url,
-            name: this.ofWindowName
+            name: this.ofWindowName,
+            frame: false
         })
 
-        this.parentWindow = await this.ofWindow.getParentWindow();
+        this.parentWindow = await fin.Window.getCurrent();
         this.ready = true;
+    }
+
+    public async show() {
+        const parentWindowBounds = await this.parentWindow.getBounds();
+        await this.ofWindow.resizeTo(parentWindowBounds.width, parentWindowBounds.height);
+        await this.ofWindow.bringToFront();
+        await this.ofWindow.showAt(parentWindowBounds.left, parentWindowBounds.top);
+        await this.ofWindow.focus();
+        await this.parentWindow.joinGroup(this.ofWindow);
     }
 }
