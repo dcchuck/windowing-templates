@@ -52,7 +52,8 @@ var OpenFinModal = /** @class */ (function () {
                         return [4 /*yield*/, fin.Window.create({
                                 url: this.url,
                                 name: this.ofWindowName,
-                                frame: false
+                                frame: false,
+                                opacity: 0.5
                             })];
                     case 1:
                         _a.ofWindow = _c.sent();

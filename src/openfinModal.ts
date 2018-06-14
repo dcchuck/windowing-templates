@@ -12,8 +12,11 @@ interface IofWindow {
     getParentWindow();
     show();
     showAt: (x: number, y: number) => any;
-    resizeTo();
+    resizeTo: (x: number, y: number) => any;
     getBounds();
+    bringToFront();
+    focus();
+    joinGroup: (w: IofWindow) => void;
 }
 
 export default class OpenFinModal {
@@ -34,7 +37,8 @@ export default class OpenFinModal {
         this.ofWindow = await fin.Window.create({
             url: this.url,
             name: this.ofWindowName,
-            frame: false
+            frame: false,
+            opacity: 0.5
         })
 
         this.parentWindow = await fin.Window.getCurrent();
