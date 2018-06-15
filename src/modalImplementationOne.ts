@@ -11,8 +11,4 @@ closeSpan.onclick = () => fin.desktop.Window.getCurrent().close();
 
 const showModalButton = document.getElementById('show-modal');
 
-showModalButton.onclick = () => showModal();
-
-async function showModal() {
-    await myModal.show();
-}
+showModalButton.onclick = () => myModal.show();

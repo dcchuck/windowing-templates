@@ -12,8 +12,6 @@ hideButton.onclick = () => {
     } else {
         thisWindow.hide();
     }
-
-
 }
 
 /*
