@@ -35,16 +35,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+//interface OpenFinModal extends EventEmitter
 var OpenFinModal = /** @class */ (function () {
     function OpenFinModal(config) {
         this.url = config.url;
+        this.xBuffer = config.xBuffer || 0;
+        this.yBuffer = config.yBuffer || 0;
+        this.topOffset = config.topOffset || 0;
         this.ready = false;
-        this.ofWindowName = "OpenFinModal " + Math.random.toString();
+        this.ofWindowName = "OpenFinModal " + Math.random().toString();
         this.initLogic();
     }
     OpenFinModal.prototype.initLogic = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b;
+            var _this = this;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
@@ -53,10 +58,17 @@ var OpenFinModal = /** @class */ (function () {
                                 url: this.url,
                                 name: this.ofWindowName,
                                 frame: false,
-                                opacity: 0.5
+                                opacity: 0.75
                             })];
                     case 1:
                         _a.ofWindow = _c.sent();
+                        this.ofWindow.on('close-requested', function (e) {
+                            console.log(e);
+                            console.log('close requested called!');
+                            console.log(_this.ofWindow);
+                            _this.ofWindow.hide().then(function () { return console.log(_this.ofWindow); });
+                            console.log('hidden!');
+                        });
                         _b = this;
                         return [4 /*yield*/, fin.Window.getCurrent()];
                     case 2:
@@ -72,16 +84,20 @@ var OpenFinModal = /** @class */ (function () {
             var parentWindowBounds;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.parentWindow.getBounds()];
+                    case 0:
+                        if (!this.ready) return [3 /*break*/, 7];
+                        console.log('IN SHOW');
+                        console.log(this.ofWindow);
+                        return [4 /*yield*/, this.parentWindow.getBounds()];
                     case 1:
                         parentWindowBounds = _a.sent();
-                        return [4 /*yield*/, this.ofWindow.resizeTo(parentWindowBounds.width, parentWindowBounds.height)];
+                        return [4 /*yield*/, this.ofWindow.resizeTo(parentWindowBounds.width + this.xBuffer, parentWindowBounds.height + this.yBuffer)];
                     case 2:
                         _a.sent();
                         return [4 /*yield*/, this.ofWindow.bringToFront()];
                     case 3:
                         _a.sent();
-                        return [4 /*yield*/, this.ofWindow.showAt(parentWindowBounds.left, parentWindowBounds.top)];
+                        return [4 /*yield*/, this.ofWindow.showAt((parentWindowBounds.left - (this.xBuffer / 2)), parentWindowBounds.top - this.topOffset)];
                     case 4:
                         _a.sent();
                         return [4 /*yield*/, this.ofWindow.focus()];
@@ -90,7 +106,8 @@ var OpenFinModal = /** @class */ (function () {
                         return [4 /*yield*/, this.parentWindow.joinGroup(this.ofWindow)];
                     case 6:
                         _a.sent();
-                        return [2 /*return*/];
+                        _a.label = 7;
+                    case 7: return [2 /*return*/];
                 }
             });
         });

@@ -5,8 +5,9 @@ body {
 }
 
 #control-bar {
-    height: 10px;
+    height: 20px;
     -webkit-app-region: drag;
+    background: red;
 }
 
 #close {
@@ -16,4 +17,9 @@ body {
 
 #close:hover {
     cursor: pointer;
+}
+
+button {
+    display: block;
+    margin: auto;
 }
